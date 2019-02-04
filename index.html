@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Social Network Site</title>
+    <meta name="Viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href="style.css" type="text/css">
+</head>
+
+
+<body id="here_is_body">
+    <div id="blank1"></div>
+    <a id="heading" href="https://www.facebook.com/KwanHiuHong"><span id="name_test">Kwan Hiu Hong</span></a>
+    <div id="starred_friend_list">
+            <h3 onclick="star_or_unstar();">
+                My Starred Friends:
+                <span id="starred_friend"></span>
+                </h3>
+    </div>
+    <div id="blank2"></div>
+    <div id="posts" onscroll="loadmore();">
+            <span id="initial_posts"></span>
+            <span id="load_moreposts1"></span>
+            <span id="load_moreposts2"></span>
+    </div>
+    <div id="blank3"></div>
+    <script>
+        window.onload = function(){
+            load_initial_posts();
+            show_starred();
+        };
+        var x = 0;
+        function loadmore(){
+            var find_divs = document.getElementById("posts");
+            if(find_divs.scrollTop + find_divs.clientHeight == find_divs.scrollHeight) {
+                x+=1;
+                Load_more_posts(x);
+            }
+        };
+                function load_initial_posts(){
+                    var xmlhttp;
+                    if(window.XMLHttpRequest){
+                        xmlhttp = new XMLHttpRequest();
+                    }else{
+                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                    }
+
+                    xmlhttp.onreadystatechange = function(){
+                        if(xmlhttp.readyState==4 && xmlhttp.status==200){
+                            var mesgs = document.getElementById("initial_posts");
+                            mesgs.innerHTML = xmlhttp.responseText;
+                        }
+                    }
+                    xmlhttp.open("GET", "handlePostDisplay.php?show=three",true);
+                    xmlhttp.send();
+                }
+
+                //this one is AJAX code, when client scroll, it automatically loads some posts from database.
+                function Load_more_posts(x){
+                    var xmlhttp;
+                    if(window.XMLHttpRequest){
+                        xmlhttp = new XMLHttpRequest();
+                    }else{
+                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                    }
+
+                    xmlhttp.onreadystatechange = function(){
+                        if(xmlhttp.readyState==4 && xmlhttp.status==200){
+                            if(x == 1){
+                                var mesgs = document.getElementById("load_moreposts1");
+                                mesgs.innerHTML = xmlhttp.responseText;
+                            }
+                            if(x == 2){
+                                var mesgs = document.getElementById("load_moreposts2");
+                                mesgs.innerHTML = xmlhttp.responseText;
+                            }
+                        }
+                    }
+                    xmlhttp.open("GET", "handlePostDisplay.php?show=more"+"&value="+x,true);
+                    xmlhttp.send();
+                }
+
+                function exec_show_comments(event,elem){
+                    if(event.keyCode==13){
+                        Show_comments(elem);
+                    }
+                }
+                
+                function Show_comments(elem){
+                    
+                    var postid = elem.getAttribute("id");
+                    var postid_string = ""+postid;
+                    var comm = document.getElementById(postid);
+                    var xmlhttp;  
+
+                    if (window.XMLHttpRequest){ 
+                        xmlhttp = new XMLHttpRequest(); 
+                    }else{ 
+                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP"); 
+                    } 
+                    
+                    xmlhttp.onreadystatechange = function(){
+                        if(xmlhttp.readyState == 4 && xmlhttp.status == 200){
+                            //var mesgs = document.getElementById("for_showing_comments");
+                            //document.getElementsByClassName(postid_string).innerHTML = xmlhttp.responseText;
+                            
+                            // var mesgs = document.getElementsByClassName(postid_string);
+                            // mesgs.innerHTML = xmlhttp.responseText;
+                            if(postid <= 3){
+                                load_initial_posts();
+                            }
+                            else if(postid >3 && postid <= 6){
+                                Load_more_posts(1);
+                            }else if(postid >6 && postid <=9){
+                                Load_more_posts(2);
+                            }
+                            //alert(xmlhttp.responseText);
+                        }
+                    }
+                    xmlhttp.open("GET","handleComments.php?comment="+comm.value+"&postID="+postid, true);
+                    xmlhttp.send();
+                }
+
+                function show_starred(){
+                    var xmlhttp;
+                    if(window.XMLHttpRequest){
+                        xmlhttp = new XMLHttpRequest();
+                    }else{
+                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                    }
+
+                    xmlhttp.onreadystatechange = function(){
+                        if(xmlhttp.readyState==4 && xmlhttp.status==200){
+                            var mesgs = document.getElementById("starred_friend");
+                            mesgs.innerHTML = xmlhttp.responseText;
+                        }
+                    }
+                    xmlhttp.open("GET", "handleFriendlistDisplay.php",true);
+                    xmlhttp.send();
+                }
+                function test(){
+                    alert("you have submitted the form!");
+                }
+
+                function star_or_unstar(elem){
+                    var friendname = elem.getAttribute("id");
+                    var xmlhttp;
+                    if(window.XMLHttpRequest){
+                        xmlhttp = new XMLHttpRequest();
+                    }else{
+                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                    }
+
+                    xmlhttp.onreadystatechange = function(){
+                        if(xmlhttp.readyState==4 && xmlhttp.status==200){
+                            elem.innerHTML = xmlhttp.responseText;
+                        }
+                    }
+                    xmlhttp.open("GET", "handleStarringFriend.php?show=change&friendname="+friendname,true);
+                    xmlhttp.send();
+                }
+    </script>
+</body>
+
+
+
+
+</html>

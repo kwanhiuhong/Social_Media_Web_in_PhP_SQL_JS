@@ -6,12 +6,12 @@
 ### It supports the following functions:
 <ul>
     <li>
-        <h3>Starring friends whom you like</h3>
+        <h5>Starring friends whom you like</h5>
     </li>               
     <li>
-        <h3>Viewing others' comments and posts, including pictures and words</h3>
+        <h5>Viewing others' comments and posts, including pictures and words</h5>
     </li>
     <li>
-        <h3>Commenting on others' posts and reflected on the web immediately</h3>
+        <h5>Commenting on others' posts and reflected on the web immediately</h5>
     </li>
 </ul>

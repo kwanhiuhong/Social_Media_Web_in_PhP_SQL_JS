@@ -1,7 +1,7 @@
 <?php  
-    $conn=mysqli_connect('sophia.cs.hku.hk', 'h3537516', '19971010') or die('Error! '.mysqli_error($conn));
+    $conn=mysqli_connect('sophia.cs.hku.hk', '', '') or die('Error! '.mysqli_error($conn));
     mysqli_select_db($conn, 'h3537516') or die('Error! '. mysqli_error($conn));
-    $query = 'SELECT * FROM posts INNER JOIN friends ON posts.friendID = friends.friendID';
+    $query = 'SELECT * FROM Z_posts_3322 INNER JOIN Z_friends_3322 ON Z_posts_3322.friendID = Z_friends_3322.friendID';
     $result = mysqli_query($conn, $query) or die('Error! '. mysql_error($conn));
 
     $check = $_GET['show'];
@@ -28,7 +28,7 @@
                 print "<img src=".$row['image']." width=\"250\" height=\"80\" >";
                 print "<br>";
 
-                $query2 = 'select * from comments';
+                $query2 = 'select * from Z_comments_3322';
                 $result2 =  mysqli_query($conn, $query2) or die('Error! '. mysql_error($conn));
                 print "<span class=\"".$row['postID']."\"".">";
                 while($row2 = mysqli_fetch_array($result2)){
@@ -69,7 +69,7 @@
                 print "<img src=".$row['image']." width=\"250\" height=\"80\" >";
                 print "<br>";
                 
-                $query2 = 'select * from comments';
+                $query2 = 'select * from Z_comments_3322';
                 $result2 =  mysqli_query($conn, $query2) or die('Error! '. mysql_error($conn));
                 print "<span class=\"".$row['postID']."\"".">";
                 while($row2 = mysqli_fetch_array($result2)){
@@ -111,7 +111,7 @@
                 print "<img src=".$row['image']." width=\"250\" height=\"80\" >";
                 print "<br>";
                 
-                $query2 = 'select * from comments';
+                $query2 = 'select * from Z_comments_3322';
                 $result2 =  mysqli_query($conn, $query2) or die('Error! '. mysql_error($conn));
                 print "<span class=\"".$row['postID']."\"".">";
                 while($row2 = mysqli_fetch_array($result2)){

@@ -1,0 +1,5 @@
+1. Connect to hkucs vpn
+2. Then open a terminal and type, where 8080 is the port number:
+ssh -L 8080:i.cs.hku.hk:22 h3537516@gatekeeper.cs.hku.hk
+3. Open Cyberduck and add a sftp connection, with localhost and port number same as above, which is 8080 this time.
+Type your cs id and password and then you get connected.

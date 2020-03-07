@@ -1,18 +1,18 @@
 <?php  
-    $conn=mysqli_connect('sophia.cs.hku.hk', 'h3537516', '19971010') or die('Error! 1'.mysqli_error($conn));
+    $conn=mysqli_connect('sophia.cs.hku.hk', '', '') or die('Error! 1'.mysqli_error($conn));
     mysqli_select_db($conn,'h3537516') or die('Error! 2'.mysqli_error($conn));
     
     $postid = $_GET['postID'];
     $TIME = date("Y/m/d")."-".date("h:i");
     $comment_content = $_GET['comment'];
 
-    $query = "select * from comments";
+    $query = "select * from Z_comments_3322";
     $result = mysqli_query($conn,$query) or die('Error! 3'.mysqli_error($conn));
     
     $largest = 0;
     while($row = mysqli_fetch_array($result)){
         $largest = $row["commentID"];
-        $query3 = "select * from comments";
+        $query3 = "select * from Z_comments_3322";
         $result3 = mysqli_query($conn,$query3) or die('Error! 4'.mysqli_error($conn));
         while($row2 = mysqli_fetch_array($result3)){
             if($row2["commentID"] > $largest){
@@ -21,7 +21,7 @@
         }
     }
     $largest += 1;
-    $query2 = "INSERT INTO comments (commentID, postID, time, commContent) VALUES ('$largest', '$postid', '$TIME', '$comment_content')";
+    $query2 = "INSERT INTO Z_comments_3322 (commentID, postID, time, commContent) VALUES ('$largest', '$postid', '$TIME', '$comment_content')";
     $result2 = mysqli_query($conn,$query2) or die('Error! 5'.mysqli_error($conn));
     
     mysqli_close($conn);

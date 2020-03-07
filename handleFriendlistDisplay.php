@@ -1,7 +1,7 @@
 <?php
-	$conn=mysqli_connect('sophia.cs.hku.hk', 'h3537516', '19971010') or die('Error! '.mysqli_error($conn));
+	$conn=mysqli_connect('sophia.cs.hku.hk', '', '') or die('Error! '.mysqli_error($conn));
 	    mysqli_select_db($conn, 'h3537516') or die('Error! '. mysqli_error($conn));
-	    $query = 'select * from friends';
+	    $query = 'select * from Z_friends_3322';
 	    $result = mysqli_query($conn, $query) or die('Error! '. mysql_error($conn));
 	    
 
